@@ -12,7 +12,7 @@ pipeline { //pipeline as code - Jenkinsfile
         }
         stage('Test'){
             steps{
-                sh "sudo install python3-pip-21.3.1-2.amzn2023.0.5.noarch -y"
+                sh "sudo apt-get install python3-pip-21.3.1-2.amzn2023.0.5.noarch -y"
                 sh "pip install -r requirements.txt"
                 sh "pytest"
                 echo "Code have been tested succesfully!"
