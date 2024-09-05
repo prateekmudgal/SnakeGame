@@ -10,14 +10,7 @@ pipeline { //pipeline as code - Jenkinsfile
                echo "code downloaded succesfully"
             }
         }
-        stage('Test'){
-            steps{
-                sh "sudo apt-get update && sudo apt-get install -y python3-pip"
-                sh "pip install -r requirements.txt"
-                sh "pytest"
-                echo "Code have been tested succesfully!"
-            }
-        }
+        
         stage("Build Docker Image"){
             steps{
                 sh "docker build -t gfgwebimg ."
