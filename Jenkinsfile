@@ -1,26 +1,27 @@
-pipeline { //pipeline as code - Jenkinsfile
-    agent{
-        label "application"
+pipeline { 
+    agent { 
+        label 'application' 
     }
 
-    stages { //collection of your jobs
-        stage('Download the source code') { //stage ~=job
-            steps {
-               git branch: 'main', url: 'https://github.com/prateekmudgal/SnakeGame.git'
-               echo "code downloaded succesfully"
-            }
+    stages { 
+        stage('Download the source code') { 
+            steps { 
+                git branch: 'main', url: 'https://github.com/prateekmudgal/SnakeGame.git'
+                echo 'Code downloaded successfully'
+            } 
         }
-        
-        stage("Build Docker Image"){
-            steps{
-                sh "docker build -t gfgwebimg ."
-            }
+
+        stage('Build Docker Image') { 
+            steps { 
+                sh 'docker build -t snakegame .' 
+            } 
         }
-        stage("Deployment"){
-            steps{
-                sh "docker rm -f webos"
-                sh "docker run -dit --name webos -p 5000:5000 gfgwebimg"
-            }
+
+        stage('Deployment') { 
+            steps { 
+                sh 'docker rm -f oriserve || true' // Added '|| true' to prevent failure if container doesn't exist
+                sh 'docker run -dit --name oriserve -p 5000:5000 snakegame' 
+            } 
         }
     }
 }
